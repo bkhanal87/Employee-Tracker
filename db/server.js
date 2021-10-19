@@ -83,7 +83,7 @@ function view(){
                 case "By department":
                     viewByDepartment();
                     break;
-                case "By role"
+                case "By role":
                     viewByRole();
                 default:
                     console.log("default");
@@ -91,4 +91,15 @@ function view(){
 
         })
 }
+
+function viewAllEmployees()
+
+
+
+
+function viewByDepartment()
+
+
+
+function viewByRole()
 
