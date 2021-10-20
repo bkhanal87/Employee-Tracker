@@ -1,36 +1,35 @@
 -- creating a database employee_tracker --
 
-DROP DATABASE IF EXISTS employeeTracker;
-CREATE DATABASE employeeTracker;
+DROP DATABASE IF EXISTS employee_db;
+CREATE DATABASE employee_db;
 
-USE employeeTracker;
+USE employee_db;
 
 -- creating three tables: department, role, and employee --
 
 -- department table --
-CREATE TABLE department (
-  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  name VARCHAR(30) NULL
+CREATE TABLE department(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30) UNIQUE NOT NULL
 );
 
 -- role table -- 
 
-CREATE TABLE role (
-  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  title VARCHAR(30) NULL,
-  salary DECIMAL(5,2) NULL,
-  department_id INT NULL
-  FOREIGN KEY (department_id) REFERENCES department(id)
+CREATE TABLE role(
+  id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(30),
+  salary DECIMAL,
+  department_id INT,
+  PRIMARY KEY (id)
 );
 
 -- employee table --
-CREATE TABLE employee (
-  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  first_name VARCHAR(30) NULL,
-  last_name VARCHAR(30) NULL,
-  role_id INT NULL,
-  manager_id INT NULL,
-  FOREIGN KEY (role_id) REFERENCES role(id),
-  FOREIGN KEY (manager_id) REFERENCES employee(id)
+CREATE TABLE employee(
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  role_id VARCHAR(30),
+  manager_id INT,
+  PRIMARY KEY (id)
 );
 
