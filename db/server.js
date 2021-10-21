@@ -5,36 +5,25 @@
 const inquirer = require("inquirer");
 
 // Import and require mysql2
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
 // Import and require console.table package
 
 const cTable = require("console.table");
-const Connection = require("mysql2/typings/mysql/lib/Connection");
-const { type } = require("os");
-const { table } = require("console");
-// const Connection = require("mysql2/typings/mysql/lib/Connection");
 
-// const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// Express middleware
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-
-// Connect to database
-const db = mysql.createConnection(
-  {
+ // Connect to database
+const connection = mysql.createConnection(
+{
     host: 'localhost',
     port: 3306,
-    // MySQL username,
+     // MySQL username,
     user: 'root',
-    // TODO: Add MySQL password here
+     // TODO: Add MySQL password here
     password: '@9803656593Bk',
-    database: 'employeeTracker'
-  },
-  console.log(`Connected to the employeeTracker database.`)
-);
+    database: 'employee_db'
+   },
+   console.log(`Connected to the employee_db database.`)
+ );
 
 // Functionalities here
 
