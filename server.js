@@ -5,11 +5,11 @@
 const inquirer = require("inquirer");
 
 // Import and require mysql2
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // Import and require console.table package
 
-require('console.table');
+const cTable = require('console.table');
 
  // Connect to database
 const connection = mysql.createConnection(
@@ -19,13 +19,19 @@ const connection = mysql.createConnection(
      // MySQL username,
     user: 'root',
      // TODO: Add MySQL password here
-    password: '',
+    password: '@9803656593Bk',
     database: 'employee_db'
-   },
-//    console.log(`Connected to the employee_db database.`)
- );
+   });
 
-// Functionalities here
+// Connnect to mySql server and DB
+connection.connect(function(err) {
+    if(err) throw err;
+    console.log('SQL Connected!');
+
+    start();
+});
+
+// Basic function
 
 function start(){
     inquirer
@@ -58,6 +64,7 @@ function start(){
         });
 }
 
+// View function set
 function view(){
     inquirer
         .prompt([
@@ -146,6 +153,7 @@ function viewByRole(){
                     message: "Select role"
                 }
             ]).then(function(answer){
+                console.log(answer.choice);
                 connection.query(
                     "SELECT e.id AS ID, e.first_name AS First, e.last_name AS Last, e.role_id AS Role, r.salary AS Salary, m.last_name AS Manager, d.name AS Department FROM employee e LEFT JOIN employee m ON e.manager_id = m.id LEFT JOIN role r ON e.role_id = r.title LEFT JOIN department d ON r.department_id = d.id where e.role_id =?", [answer.choice], function(err,results)
                     {
@@ -160,6 +168,7 @@ function viewByRole(){
     });
 }
 
+// Add function set
 function add(){
     inquirer
         .prompt([
@@ -262,7 +271,7 @@ function addEmployeeRole(){
 function addEmployee(){
     connection.query("SELECT * FROM role", function(err, results){
         if(err) throw err;
-
+        // once we have results, users are prompted to new employee information
         inquirer
             .prompt([
                 {
@@ -279,7 +288,7 @@ function addEmployee(){
                     name: "role",
                     type: "rawlist",
                     choices: function(){
-                        let choiceArr = [];
+                        var choiceArr = [];
                         for(i=0; i< results.length; i++){
                             choiceArr.push(results[i].title)
                         }
@@ -318,7 +327,7 @@ function addEmployee(){
     });
 }
 
-
+// UPDATE Function Set
 function updateEmployee(){
     connection.query("SELECT * FROM employee",
     function(err, results){
@@ -393,11 +402,11 @@ function updateEmployee(){
     })
 }
 
-connection.connect((err) => {
-    if (err) throw err;
-    console.log(`connected as id ${connection.threadId}\n`);
-    startPrompts();
-});
+// connection.connect((err) => {
+//     if (err) throw err;
+//     console.log(`connected as id ${connection.threadId}\n`);
+//     startPrompts();
+// });
 
 
 
